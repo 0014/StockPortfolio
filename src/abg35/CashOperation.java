@@ -128,7 +128,7 @@ public class CashOperation extends HttpServlet {
 			
 			System.out.println(update);
 			double newbalance =getPortfolioBalance(pid) + amount;
-			stmt.executeUpdate("INSERT INTO portfolio_transactions (T_ID,P_ID,ACTION,AMOUNT,TDATE) VALUES ('"+update+"','"+pid+"','A','"+amount+"',CURRENT_TIMESTAMP)");
+			stmt.executeUpdate("INSERT INTO portfolio_transactions (T_ID,P_ID,ACTION,AMOUNT,TDATE) VALUES ('"+update+"','"+pid+"','ADD','"+amount+"',CURRENT_TIMESTAMP)");
 			String sql = "UPDATE portfolio " +"SET balance ="+ newbalance+" WHERE p_id="+ pid+"";
 			stmt.executeUpdate(sql);
 			stmt.close();

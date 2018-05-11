@@ -24,15 +24,7 @@ public class Authenticate extends HttpServlet {
 	     
 	     String userName = request.getParameter("userName");
 	     String password = request.getParameter("password");
-	     String input = request.getParameter("rCode");
-	     if(input != null && !input.equals("")) {
-	    	 String result = LpSolver.solve(input);
-	    	 request.setAttribute("error", result);
-	    	 request.getRequestDispatcher("login.jsp").forward(request, response);
-	     }
-	     
 	     int userId = getUser(userName, password);
-	     
 	     if(userId != 0) {
 	    	 request.getRequestDispatcher("GetUser?id=" + userId).forward(request, response);
 	     }else {

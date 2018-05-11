@@ -8,14 +8,16 @@ public class StockModel {
 	private int _shares;
 	private double _stockValue;
 	private float _expectedReturn;
+	private float _beta;
 	
-	public StockModel(String company, String type, double initialPrice, int shares, double value, float expectedReturn) {
+	public StockModel(String company, String type, double initialPrice, int shares, double value, float expectedReturn, float beta) {
 		_company = company;
 		_type = type;
 		_shares = shares;
 		_stockInitialPrice = initialPrice;
 		_stockValue = value;
 		_expectedReturn = expectedReturn;
+		_beta = beta;
 	}
 	
 	public String getType() {
@@ -56,5 +58,9 @@ public class StockModel {
 	
 	public void setExpectedReturn(float er) {
 		_expectedReturn = er;
+	}
+	
+	public float getBeta() {
+		return _beta;
 	}
 }

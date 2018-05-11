@@ -33,7 +33,7 @@ public class OptimizePortfolio extends HttpServlet {
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
 		JSONObject resp = new JSONObject();
-		String line1 = "", line2 = "", line3 = "", line4 = "", line5 = "max: ", line6 = "int";
+		String line1 = "", line2 = "", line3 = "", line4 = "", line5 = "max: ", line6 = "int", line7 = "";
 		
 		try {
 			JSONObject json = (JSONObject) parser.parse(getBody(request));
@@ -52,6 +52,7 @@ public class OptimizePortfolio extends HttpServlet {
 				//System.out.println("currentValue: " + currentValue);
 				float expectedReturn = Float.parseFloat(jsonObj.getString("expectedReturn")); 	
 				//System.out.println("expectedReturn: " + expectedReturn);
+				float beta = Float.parseFloat(jsonObj.getString("beta")); 	
 				
 				line1 += symbol + ">=1;\r\n";
 				line2 += "+" + currentValue + symbol + " ";
@@ -64,10 +65,17 @@ public class OptimizePortfolio extends HttpServlet {
 				}
 				line5 += "+" + (currentValue * expectedReturn / 100) + symbol + " ";
 				line6 += " " + symbol;
+				if(beta - 1.2 > 0) {
+					line7 += "+" + (beta - 1.2) + symbol + " ";
+				}else {
+					line7 += (beta - 1.2) + symbol + " ";
+				}
+				
 			}
 			String data =
 					line5 + ";\r\n" +
-					line1 + 
+					line1 +
+					line7 + "<= 0;\r\n" +
 					line2 + "<=" + totalInvestment + ";\r\n" +
 					line2 + ">=" + (totalInvestment - totalInvestment * 10 / 100) + ";\r\n" +
 					line3 + ">=0" + ";\r\n" +
